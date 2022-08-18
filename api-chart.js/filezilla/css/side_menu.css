@@ -1,0 +1,151 @@
+
+/* sideMenu */
+        .side-menu-group {
+            position:fixed;
+            top: 0;
+            right: 0px;
+            height: 100vh;
+            z-index: 100;
+        }
+
+    
+
+        .side-menu {
+            position: relative;
+            width: 300px;
+            height: 100%;
+            background: rgba(0,0,0,.8);
+            display: flex;
+            flex-direction: column;
+            padding: 80px 0;
+            box-sizing: border-box;
+            font-size: 22px;
+            overflow: hidden;
+            /* background-image: linear-gradient(0deg, rgb(238, 147, 147), rgb(148, 211, 136)); */
+            /* box-shadow: -3px 0px 5px hsla(240, 50%, 30%, .4); */
+            
+        }
+
+        .side-menu form {
+            display: flex;
+            margin: 0 10px 50px;
+            border-radius: 100px;
+            border: 1px solid rgb(255, 255, 255,.4);
+        }
+
+        .side-menu form input,
+        .side-menu form button {
+            border: none;
+            padding: 5px 10px;
+            background-color: transparent;
+            color: #fff;
+        }
+
+        .side-menu form input {
+            width: 230px;
+        }
+
+        .side-menu form button {
+            width: 50px;
+        }
+
+        ::placeholder {
+            color: red;
+            opacity: 1;
+        }
+
+        .side-menu form input:focus,
+        .side-menu form button:focus {
+            outline: none;
+        }
+
+        .side-menu nav a {
+            display: block;
+            padding: 10px;
+            color: #fff;
+            text-decoration: none;
+            position: relative;
+        }
+        
+        .side-menu nav a:hover{
+            color: #fff;
+        }
+        .side-menu nav a+a::before {
+            content: "";
+            position: absolute;
+            border-top: 1px solid rgb(255, 255, 255,.4);
+            left: 10px;
+            right: 10px;
+            top: 0;
+        }
+        
+        .side-menu nav a .fa{
+            color: #fff;
+            margin-right: -1.1em;
+            transform: scale(0);
+            transition: .3s;
+        }
+        .side-menu nav a:hover .fa{    
+            margin-right: 0em;
+            transform: scale(1);
+        }
+
+        /* hamBtn */
+        .ham-btn {
+            display: block;
+            position: fixed;
+            top: 25px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            transition: .3s;
+            cursor: pointer;
+            z-index: 5000;
+        }
+
+        .ham-btn span {
+            display: block;
+            position: absolute;
+            left: 0;
+            width: 40px;
+            height: 10px;
+            background-color: #263a55;
+            transition: .3s;
+        }
+
+        .ham-btn span:nth-child(1) {
+            top: 0px;
+        }
+
+        .ham-btn span:nth-child(2) {
+            top: 20px;
+        }
+
+        .open  span {
+            background-color: rgb(228, 20, 20);
+        }
+
+        .open span:nth-child(1) {
+            transform: translateY(10px) rotate(-315deg);
+        }
+
+        .open span:nth-child(2) {
+            transform: translateY(-10px) rotate(315deg);
+        }
+
+        .s_icon {
+            display: flex;
+            justify-content: space-around;
+
+        }
+
+        .side-menu .s_icon a {
+            color: #FFF;
+            transform: scale(1);
+            transition: .3s;
+        }
+
+        .side-menu .s_icon a:hover {
+            color: #fff;
+            transform: scale(1.3);
+        }

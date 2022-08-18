@@ -1,0 +1,1 @@
+&copy; <?=$Footer->find(['id'=>1])['text'];?>

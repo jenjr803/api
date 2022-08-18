@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一般天氣預報-今明 36 小時天氣預報</title>
+    <!-- BS4 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <!-- datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- css -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRR9P3GS2E"></script>
+    <script src="./script.js"></script>
+    <style>
+        body{
+            margin:1rem;
+        }
+        th{
+            text-align: center;       
+        }
+        table{
+            border: solid 1px #AAA;
+            border-radius: 5px;
+        }
+        img{
+            width: 36px;
+        }
+      
+    </style>
+</head>
+
+<body>
+
+    <h1 class="header">一般天氣預報-今明 36 小時天氣預報</h1>
+    <div class="container">
+        <table id="table_id" class="table-hover table-success table-striped ">
+            <div id="" class="text-center">日期：<span id="day"></span></div>
+            <thead>
+                <tr>
+                    <th class="col-sm-2 text-center">地區</th>
+                    <th class="col-sm-4 text-center">時間</th>
+                    <th class="col-sm-5 text-center">天氣</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">              
+                
+            </tbody>
+        </table>
+    </div>
+    
+
+    <!-- 先載入jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- BS4 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <!-- datatable -->
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+    <!-- CHART.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script>
+        $.ajax({
+            type: "get",
+            url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-D77D9C24-79AA-428A-807F-CBA5C9E4DDAE",
+            dataType: "json",
+            success: function (data) {
+         
+                let dataset = data.records.location;
+                console.log(dataset);           
+                
+                for (i = 0; i < dataset.length; i++) {
+                    let start =(dataset[i].weatherElement[0].time[0].startTime.slice(0,10));
+                    $("#day").text(start);
+                    $("tbody").append(
+                        `<tr>                            
+                            <td class="text-center">${dataset[i].locationName}</td>
+                            <td class="text-center">
+                                ${dataset[i].weatherElement[0].time[0].startTime} 至 
+                                ${dataset[i].weatherElement[0].time[0].endTime}
+                                </td>
+                            <td><img src="./day/${dataset[i].weatherElement[0].time[0].parameter['parameterValue']}.svg" alt="">
+                            ${dataset[i].weatherElement[0].time[0].parameter['parameterName']}</td>
+                        </tr>`
+                        );
+                    }
+             
+                $('#table_id').DataTable();
+
+            }
+
+        })
+
+
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1998年至2021年每月國際主要金融指標</title>
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <!-- BS4 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <!-- datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- css -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRR9P3GS2E"></script>
+
+
+    <style>
+        .card-group {
+            width: 80vw;
+            margin: auto;
+        }
+
+        .card-group .card {
+            flex: unset;
+            padding: 1rem;
+            border: 0;
+
+        }
+
+        .card-group .card .card-body {
+            flex: unset;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+            min-height: 15rem;
+        }
+
+        .name {
+            font-weight: bolder;
+            border-bottom: 1px solid #999;
+            margin: 0.25rem 0;
+        }
+
+        .summary {
+
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 0 5px #ccc;
+            margin: 0.5rem 0;
+            width: 90%;
+            float: right;
+
+        }
+    </style>
+</head>
+
+<body>
+    <script src="vanilla.js"></script>
+    <h1 class="header">1998年至2021年每月國際主要金融指標</h1>
+   
+    <ul class="card-group">
+
+    </ul>
+
+
+    <!-- 先載入jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- BS4 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <!-- datatable -->
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+    <!-- CHART.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script>
+
+$.ajax({
+                type: "get",
+                url: "https://apiservice.mol.gov.tw/OdService/rest/datastore/A17000000J-030245-4Ml",
+                dataType: 'json',
+                success: function(result) {
+                    data = result;
+                    // console.log('data', data);
+
+                    for (let i = 0; i < events.result.records.length; i++) {
+                        $('tbody').append(`
+    <tr>
+        <td>${1997 + i}</td>
+        <td>${data[i]['新台幣']}</td>
+        <td>${data[i]['人民幣']}</td>
+        <td>${data[i]['日圓']}</td>
+        <td>${data[i]['韓元']}</td>
+        <td>${data[i]['新加坡元']}</td>
+        <td>${data[i]['歐元']}</td>
+        <td>${data[i]['英鎊']}</td>
+        <td>${data[i]['澳幣']}</td>
+    </tr>
+    `);
+                    }
+
+                    $('#table_id').DataTable();
+                }
+            })
+
+
+        //利用$.get()方法傳送請求並取得回應
+        $.get('https://apiservice.mol.gov.tw/OdService/rest/datastore/A17000000J-030245-4Ml', (res) => {
+            // console.log('hi');
+            // console.log(res.result.records[0]['年度']);
+            // console.log(res);
+            eventList(res);
+            // eventList(res)
+        })
+
+
+    //月別、貨幣供給額期底年增率-M1B、貨幣供給額期底年增率-M2、金價（美元／英兩）-國際現貨黃金價格、金價（美元／英兩）-台北、匯率（月底）-（新台幣／美元）、外匯存底（億美元）、利率（年息%）-金融業拆款、利率（年息%）-商業本票31-90天期、利率（年息%）-中央銀行重貼現率、利率（年息%）-債券市場（十年期中央政府公債）、證券（集中市場）-發行量加權股價指數（月底）、證券（集中市場）-成交值（億元）
+        /********************************************************
+            * 1.api網址  https://kktix.com/events.json
+            * 2.選擇$.ajax()、$.get()、$.post()其中一種方式
+            * 3.建立回呼函式(call back function)來處理回應時的各項行為
+            * 4.建立錯誤處理
+            ********************************************************/
+    </script>
+
+
+</body>
+
+</html>
