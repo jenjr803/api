@@ -48,7 +48,8 @@
                 <tr>
                     <th class="col-sm-2 text-center">地區</th>
                     <th class="col-sm-4 text-center">時間</th>
-                    <th class="col-sm-5 text-center">天氣</th>
+                    <th class="col-sm-4 text-center">天氣</th>
+                    <th class="col-sm-2 text-center">氣溫</th>
                 </tr>
             </thead>
             <tbody id="tbody">              
@@ -99,6 +100,7 @@
                                 </td>
                             <td><img src="./day/${dataset[i].weatherElement[0].time[0].parameter['parameterValue']}.svg" alt="">
                             ${dataset[i].weatherElement[0].time[0].parameter['parameterName']}</td>
+                            <td class="text-center">${dataset[i].weatherElement[2].time[0].parameter['parameterName']}&deg;C</td>
                         </tr>`
                         );
                     }
